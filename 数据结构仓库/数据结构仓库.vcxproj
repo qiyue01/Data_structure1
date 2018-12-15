@@ -164,6 +164,7 @@
     </ClCompile>
     <ClCompile Include="Red_Black_Tree.cpp" />
     <ClCompile Include="treap.cpp" />
+    <ClCompile Include="划分树.cpp" />
     <ClCompile Include="数据结构仓库.cpp" />
     <ClCompile Include="树链剖分.cpp" />
     <ClCompile Include="树链剖分2.cpp" />

@@ -62,24 +62,6 @@ int Lca(int x, int y) {
 }
 int main()
 {
-	memset(son, -1, sizeof(son));
-	ios::sync_with_stdio(false);
-	int a, b, c;
-	cin >> a >> b >> c;
-	int a1, a2;
-	for (int i = 0; i < a - 1; ++i)
-	{
-		cin >> a1;
-		cin >> a2;
-		add(a1, a2);
-		add(a2, a1);
-	}
-	dfs1(c,c,1);
-	dfs2(c,c);
-	for (int i = 0; i < b; ++i)
-	{
-		cin >> a1 >> a2;
-		cout << Lca(a1, a2) << endl;
-	}
+	
 }
 

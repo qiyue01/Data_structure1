@@ -26,7 +26,7 @@ namespace tree_split1
 	//---------------
 //树状数组部分
 	long long sum1[N], sum2[N];
-	long a[N]; //原序列
+	long long a[N]; //原序列
 	class tree_array1  //区间修改 + 区间和
 	{
 	public:
@@ -42,24 +42,24 @@ namespace tree_split1
 			memset(sum1, 0, sizeof(sum1));
 			memset(sum2, 0, sizeof(sum2));
 		}
-		void add(int p, long x) {
+		void add(int p, long long x) {
 			for (int i = p; i <= n; i += i & -i)
 			{
 				sum1[i] += x;
 				sum2[i] += x * p;
 			}
 		}
-		void range_add(int l, int r, long x) {
+		void range_add(int l, int r, long long x) {
 			add(l, x);
 			add(r + 1, -x);
 		}
-		long ask(int p) {
-			long res = 0;
+		long long ask(int p) {
+			long long res = 0;
 			for (int i = p; i != 0; i -= i & -i)
 				res += (p + 1) * sum1[i] - sum2[i];
 			return res;
 		}
-		long range_ask(int l, int r) {
+		long long range_ask(int l, int r) {
 			return ask(r) - ask(l - 1) + a[r] - a[l - 1];
 		}
 	};
@@ -82,9 +82,9 @@ public:
 		if (dep[x] > dep[y]) swap(x, y);
 		p.range_add(id[x], id[y], k);
 	}
-	long query2(tree_array1 &p, int x, int y) //区间询问 query具体看题目写 输入原树编号
+	long long query2(tree_array1 &p, int x, int y) //区间询问 query具体看题目写 输入原树编号
 	{
-		long ans = 0;
+		long long ans = 0;
 		while (top[x] != top[y])
 		{
 			if (dep[top[x]] < dep[top[y]]) swap(x, y);
@@ -181,57 +181,6 @@ public:
 
 }
 using namespace tree_split1;
-int main()
-{
 
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	int n, m, p, r, u, v, q, q1, q2, q3,in;
-	cin >> n >> m >> r >> p;
-	tree_split part;
-	for (int i = 1; i <= n; ++i)
-	{
-		cin >> in;
-		part.add_weight(i, in);
-	}
-	init_graph();
-	for (int i = 1; i < n; ++i)
-	{
-		cin >> u >> v;
-		part.add_edge(u, v);
-		part.add_edge(v, u);
-	}
-	tree_array1 part1(n);
-	part.init(r);
-	for (int i = 0; i <= n; ++i)
-		a[i] = new_weight[i];
-	part1.init();
-	for (int i = 0; i < m; ++i)
-	{
-		cin >> q;
-		if (q == 1)
-		{
-			cin >> q1 >> q2 >> q3;
-			part.query(part1, q1, q2, q3);
-		}
-		else if (q == 2)
-		{
-			cin >> q1 >> q2;
-			cout<<part.query2(part1, q1, q2) % p<<'\n';
-		}
-		else if (q == 3)
-		{
-			cin >> q1 >> q2;
-			part1.range_add(id[q1],id[q1] + size1[q1] - 1, q2);
-		}
-		else
-		{
-			cin >> q1;
-			cout<<part1.range_ask(id[q1],id[q1]+size1[q1] - 1) % p<<'\n';
-		}
-	}
-	return 0;
-}
 
 

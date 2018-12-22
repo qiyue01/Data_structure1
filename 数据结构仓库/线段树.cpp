@@ -20,7 +20,7 @@
 using namespace std;
 namespace segment_tree
 {
-	const int N = 60000;
+	const int N = 100100;
 	struct node
 	{
 		int L, R,sum,sum2,Max;
@@ -75,6 +75,21 @@ namespace segment_tree
 			}
 		tree_pool[cur].lazy.clear();
 	}
+	void modify(int cur,int position,int w) //单点修改最大值
+	{
+		int ans = 0, mid = (tree_pool[cur].L + tree_pool[cur].R) / 2;
+		if (tree_pool[cur].L == tree_pool[cur].R)
+		{
+			tree_pool[cur].Max = w;
+			return ;
+		}
+		push_down(cur);
+		if (position <= mid)
+			modify((cur << 1), position, w);
+		else
+			modify((cur << 1) + 1, position, w);
+		tree_pool[cur].Max = max(tree_pool[(cur << 1)].Max, tree_pool[(cur << 1) + 1].Max);
+	}
 	void range_add(int L,int R,int k)
 	{
 		tree_pool[1].lazy.push_back(make_pair(make_pair(L, R),k));
@@ -91,6 +106,20 @@ namespace segment_tree
 			ans += range_ask_sum((cur << 1), L, R);
 		else if(L>=mid+1)
 			ans += range_ask_sum((cur << 1)+1, L, R);
+		return ans;
+	}
+	int range_ask_max(int cur, int L, int R)
+	{
+		int ans = 0, mid = (tree_pool[cur].L + tree_pool[cur].R) / 2;
+		push_down(cur);
+		if (L == tree_pool[cur].L && R == tree_pool[cur].R)
+			return tree_pool[cur].Max;
+		if (L <= mid && R > mid)
+			ans = max(range_ask_max((cur << 1), L, mid) , range_ask_max((cur << 1) + 1, mid + 1, R));
+		else if (R <= mid)
+			ans =max(ans, range_ask_max((cur << 1), L, R));
+		else if (L >= mid + 1)
+			ans = max(ans,range_ask_max((cur << 1) + 1, L, R));
 		return ans;
 	}
 }

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include<iostream>
 #include<cstring>
 #include<cstdio>
@@ -109,12 +110,4 @@ void add(int x, int y, int val)
 {
 	makeroot(x); access(y); splay(y);
 	tag[y] += val; mx[y] += val; v[y] += val;
-}
-int main()
-{
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-
-	return 0;
 }

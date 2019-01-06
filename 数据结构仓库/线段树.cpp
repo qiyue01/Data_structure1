@@ -20,11 +20,14 @@
 using namespace std;
 namespace segment_tree
 {
+	/**
+	*    基础部分
+	**/
 	const int N = 100100;
 	struct node
 	{
-		int L, R,sum,sum2,Max;
-		list<pair<pair<int, int >,int > > lazy;
+		int L, R,sum,sum2,modify;
+		bool lazy;
 	};
 	node tree_pool[N*4];
 	int pool[N];
@@ -32,7 +35,11 @@ namespace segment_tree
 	{
 		memset(pool, 0, sizeof(pool));
 		for (int i = 0; i < sum * 4; ++i)
-			tree_pool[i].lazy.clear();
+			tree_pool[i].lazy=false;
+	}
+	void update(int cur)
+	{
+		tree_pool[cur].sum = tree_pool[cur << 1].sum + tree_pool[(cur << 1) + 1].sum;
 	}
 	void build(int cur, int L, int R)
 	{
@@ -40,66 +47,58 @@ namespace segment_tree
 		tree_pool[cur].L = L;
 		tree_pool[cur].R = R;
 		tree_pool[cur].sum2 = 0;
+		tree_pool[cur].modify = 0;
 		if (L == R)
 		{
 			tree_pool[cur].sum = pool[L];
-			tree_pool[cur].Max = pool[L];
 			return;
 		}
 		build(cur << 1, L, mid);
 		build((cur << 1) + 1, mid + 1, R);
-		tree_pool[cur].sum = tree_pool[cur << 1].sum+ tree_pool[(cur << 1)+1].sum;
-		tree_pool[cur].Max = max(tree_pool[cur << 1].Max , tree_pool[(cur << 1) + 1].Max);
+		update(cur);
 	}
+	/**
+	*    维护区间加和区间和操作
+	**/
 	void push_down(int cur)
 	{
-		int mid = (tree_pool[cur].L + tree_pool[cur].R) / 2;
-		if (!tree_pool[cur].lazy.empty())
-			for (auto &s : tree_pool[cur].lazy)
-			{
-				int L = s.first.first,R=s.first.second;
-				tree_pool[cur].sum2 += s.second*(s.first.second-s.first.first+1);
-				tree_pool[cur].Max += s.second;
-				if (tree_pool[cur].L != tree_pool[cur].R)
-				{
-					if (L <= mid && R > mid)
-					{
-						tree_pool[cur << 1].lazy.push_back(make_pair(make_pair(L , mid), s.second));
-						tree_pool[(cur << 1)+1].lazy.push_back(make_pair(make_pair(mid+1,R), s.second));
-					}
-					else if (R <= mid)
-						tree_pool[cur << 1].lazy.push_back(make_pair(make_pair(L, R), s.second));
-					else if (L >= mid + 1)
-						tree_pool[(cur << 1) + 1].lazy.push_back(make_pair(make_pair(L, R), s.second));
-				}
-			}
-		tree_pool[cur].lazy.clear();
+		tree_pool[cur].sum += tree_pool[cur].sum2*(tree_pool[cur].R - tree_pool[cur].L + 1);		
+		tree_pool[cur].lazy = false;
+		if (tree_pool[cur].L != tree_pool[cur].R)
+		{
+			tree_pool[cur << 1].lazy = true;
+			tree_pool[(cur << 1) + 1].lazy = true;
+			tree_pool[cur << 1].sum2+=tree_pool[cur].sum2;
+			tree_pool[(cur << 1) + 1].sum2 += tree_pool[cur].sum2;
+		}
+		tree_pool[cur].sum2 = 0;
 	}
-	void modify(int cur,int position,int w) //单点修改最大值
+	void range_add(int cur,int L,int R,int k)
 	{
 		int ans = 0, mid = (tree_pool[cur].L + tree_pool[cur].R) / 2;
-		if (tree_pool[cur].L == tree_pool[cur].R)
+		if (L == tree_pool[cur].L && R == tree_pool[cur].R)
 		{
-			tree_pool[cur].Max = w;
-			return ;
+			tree_pool[cur].sum2 += k;
+			tree_pool[cur].lazy = true;
+			return;
 		}
-		push_down(cur);
-		if (position <= mid)
-			modify((cur << 1), position, w);
-		else
-			modify((cur << 1) + 1, position, w);
-		tree_pool[cur].Max = max(tree_pool[(cur << 1)].Max, tree_pool[(cur << 1) + 1].Max);
-	}
-	void range_add(int L,int R,int k)
-	{
-		tree_pool[1].lazy.push_back(make_pair(make_pair(L, R),k));
+		tree_pool[cur].sum += k*(R - L + 1);
+		if (L <= mid && R > mid)
+		{
+			range_add((cur << 1), L, mid, k);
+			range_add((cur << 1) + 1, mid + 1, R,k);
+		}
+		else if (R <= mid)
+			range_add((cur << 1), L, R,k);
+		else if (L >= mid + 1)
+			range_add((cur << 1) + 1, L, R,k);
 	}
 	int range_ask_sum(int cur,int L,int R)
 	{
 		int ans = 0,mid=(tree_pool[cur].L+ tree_pool[cur].R)/2;
 		push_down(cur);
 		if (L == tree_pool[cur].L && R == tree_pool[cur].R)
-			return tree_pool[cur].sum + tree_pool[cur].sum2;
+			return tree_pool[cur].sum;
 		if (L <= mid && R > mid)
 			ans += range_ask_sum((cur << 1), L, mid) + range_ask_sum((cur << 1) + 1, mid + 1, R);
 		else if (R <= mid)
@@ -108,19 +107,88 @@ namespace segment_tree
 			ans += range_ask_sum((cur << 1)+1, L, R);
 		return ans;
 	}
-	int range_ask_max(int cur, int L, int R)
+	/**
+	*    维护区间覆盖和区间和操作
+	*    没有写同时支持区间覆盖和区间加版本
+	**/
+	void push_down_modify(int cur)
+	{
+		tree_pool[cur].sum = tree_pool[cur].sum2*(tree_pool[cur].R - tree_pool[cur].L + 1);
+		tree_pool[cur].lazy = false;
+		if (tree_pool[cur].L != tree_pool[cur].R)
+		{
+			tree_pool[cur << 1].lazy = true;
+			tree_pool[(cur << 1) + 1].lazy = true;
+			tree_pool[cur << 1].sum2 = tree_pool[cur].sum2;
+			tree_pool[cur << 1].sum = tree_pool[cur << 1].sum2*(tree_pool[cur << 1].R- tree_pool[cur << 1].L+1);
+			tree_pool[(cur << 1) + 1].sum2 = tree_pool[cur].sum2;
+			tree_pool[(cur << 1) + 1].sum = tree_pool[(cur << 1) + 1].sum2*(tree_pool[(cur << 1) + 1].R - tree_pool[(cur << 1) + 1].L + 1);
+		}
+	}
+	void range_modify(int cur, int L, int R, int k)
 	{
 		int ans = 0, mid = (tree_pool[cur].L + tree_pool[cur].R) / 2;
-		push_down(cur);
+		if (tree_pool[cur].lazy == true)
+			push_down_modify(cur);
 		if (L == tree_pool[cur].L && R == tree_pool[cur].R)
-			return tree_pool[cur].Max;
+		{
+			tree_pool[cur].sum2 = k;
+			tree_pool[cur].sum = k*(tree_pool[cur].R - tree_pool[cur].L + 1);			
+			tree_pool[cur].lazy = true;
+			return;
+		}	
 		if (L <= mid && R > mid)
-			ans = max(range_ask_max((cur << 1), L, mid) , range_ask_max((cur << 1) + 1, mid + 1, R));
+		{
+			range_modify((cur << 1), L, mid, k);
+			range_modify((cur << 1) + 1, mid + 1, R, k);
+		}
 		else if (R <= mid)
-			ans =max(ans, range_ask_max((cur << 1), L, R));
+			range_modify((cur << 1), L, R, k);
 		else if (L >= mid + 1)
-			ans = max(ans,range_ask_max((cur << 1) + 1, L, R));
+			range_modify((cur << 1) + 1, L, R, k);
+		update(cur);
+	}
+	int range_ask_sum_modify(int cur, int L, int R)
+	{
+		int ans = 0, mid = (tree_pool[cur].L + tree_pool[cur].R) / 2;
+		if(tree_pool[cur].lazy)
+		push_down_modify(cur);
+		if (L == tree_pool[cur].L && R == tree_pool[cur].R)
+			return tree_pool[cur].sum;
+		if (L <= mid && R > mid)
+			ans += range_ask_sum_modify((cur << 1), L, mid) + range_ask_sum_modify((cur << 1) + 1, mid + 1, R);
+		else if (R <= mid)
+			ans += range_ask_sum_modify((cur << 1), L, R);
+		else if (L >= mid + 1)
+			ans += range_ask_sum_modify((cur << 1) + 1, L, R);
 		return ans;
 	}
 }
 using namespace segment_tree;
+int main()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int n,q,l,r,k,p;
+	cin >> n;
+	for (int i = 1; i <= n; ++i)
+		cin >> pool[i];
+	build(1, 1, n);
+	cin >> q;
+	while (q--)
+	{
+		cin >> p;
+		if (p == 0)
+		{
+			cin >> l >> r;
+			cout << range_ask_sum_modify(1, l, r)<<'\n';
+		}
+		else
+		{
+			cin >> l >> r >> k;
+			range_modify(1, l, r, k);
+		}
+	}
+	return 0;
+}

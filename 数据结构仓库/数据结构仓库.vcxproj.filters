@@ -44,5 +44,11 @@
     <ClCompile Include="LCT.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="树上启发式合并.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="斐波那契堆.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

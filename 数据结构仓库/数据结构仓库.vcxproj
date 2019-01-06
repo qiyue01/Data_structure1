@@ -167,6 +167,8 @@
     <ClCompile Include="treap.cpp" />
     <ClCompile Include="划分树.cpp" />
     <ClCompile Include="数据结构仓库.cpp" />
+    <ClCompile Include="斐波那契堆.cpp" />
+    <ClCompile Include="树上启发式合并.cpp" />
     <ClCompile Include="树链剖分2.cpp" />
     <ClCompile Include="线段树.cpp" />
   </ItemGroup>

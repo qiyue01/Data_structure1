@@ -53,5 +53,20 @@
     <ClCompile Include="hash_map.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="树的直径.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="替罪羊树.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="珂朵莉树.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="splay.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="可持久化线段树.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

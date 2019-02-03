@@ -23,7 +23,7 @@ const int N = 100010;
 int sorted[N];   //排序完的数组
 int toleft[30][N];   //toleft[i][j]表示第i层从1到k有多少个数分入左边
 int tree[30][N];  //表示每层每个位置的值
-
+//使用的时候先sort，同时 toleft[0]需要使用原数组初始化
 void buildingTree(int l, int r, int dep)
 {
 	if (l == r)    return;

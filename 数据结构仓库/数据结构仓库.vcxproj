@@ -165,12 +165,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Red_Black_Tree.cpp" />
+    <ClCompile Include="splay.cpp" />
     <ClCompile Include="treap.cpp" />
     <ClCompile Include="划分树.cpp" />
+    <ClCompile Include="可持久化线段树.cpp" />
     <ClCompile Include="数据结构仓库.cpp" />
     <ClCompile Include="斐波那契堆.cpp" />
+    <ClCompile Include="替罪羊树.cpp" />
     <ClCompile Include="树上启发式合并.cpp" />
+    <ClCompile Include="树的直径.cpp" />
     <ClCompile Include="树链剖分2.cpp" />
+    <ClCompile Include="珂朵莉树.cpp" />
     <ClCompile Include="线段树.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

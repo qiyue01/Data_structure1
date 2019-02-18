@@ -92,7 +92,6 @@ namespace tree_split1
 				if (dep[top[x]] < dep[top[y]]) swap(x, y);
 				p.range_add(id[top[x]], id[x], k);
 				x = fa[top[x]];
-
 			}
 			if (dep[x] > dep[y]) swap(x, y);
 			p.range_add(id[x], id[y], k);

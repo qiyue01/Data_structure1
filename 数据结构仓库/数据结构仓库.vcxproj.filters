@@ -68,5 +68,8 @@
     <ClCompile Include="可持久化线段树.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="点分治.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

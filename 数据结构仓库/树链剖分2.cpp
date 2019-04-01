@@ -142,7 +142,7 @@ namespace tree_split1
 		void add_edge(int u, int v)
 		{
 			g.add(u, v);
-
+			g.add(v, u);
 		}
 		void dfs0(int u) //单纯用来求LCA的dfs
 		{

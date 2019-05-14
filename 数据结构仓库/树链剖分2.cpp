@@ -11,6 +11,7 @@
 #include<algorithm>
 using namespace std;
 const int N = 252000;
+const long long NN = 0x7fffffffffffffff;
 namespace tree_split1
 {
 	//前向星部分

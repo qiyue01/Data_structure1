@@ -74,5 +74,14 @@
     <ClCompile Include="倍增.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="二维树状数组.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="二维线段树.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kd树.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

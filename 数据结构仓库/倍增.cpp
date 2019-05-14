@@ -18,6 +18,7 @@
 #include<memory.h>
 #include<functional>
 using namespace std;
+//±¶Ôö
 const int maxn = 230000;
 const int max2 = 22;
 vector<int> part_[maxn];

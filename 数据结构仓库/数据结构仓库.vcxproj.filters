@@ -89,5 +89,11 @@
     <ClCompile Include="边分 静态+动态.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="01trie.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="点分树LCA_MIN_MAX.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

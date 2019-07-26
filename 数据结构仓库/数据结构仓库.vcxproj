@@ -156,6 +156,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="01trie.cpp" />
     <ClCompile Include="hash_map.cpp" />
     <ClCompile Include="kd树.cpp" />
     <ClCompile Include="LCT.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="树的直径.cpp" />
     <ClCompile Include="树链剖分2.cpp" />
     <ClCompile Include="点分树+重构树.cpp" />
+    <ClCompile Include="点分树LCA_MIN_MAX.cpp" />
     <ClCompile Include="点分治.cpp" />
     <ClCompile Include="珂朵莉树.cpp" />
     <ClCompile Include="线段树.cpp" />

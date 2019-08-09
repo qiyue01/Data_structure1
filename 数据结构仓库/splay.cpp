@@ -27,7 +27,7 @@ struct Splay {
 	enum Relation { L = 0, R = 1 };
 	struct Node {
 		Node *child[2], *parent, **root;
-		T value, max, lazy;//维护的各种信息以及标记
+		T value, max, lazy,sum;//维护的各种信息以及标记
 		int size;
 		bool reversed, bound;
 		inline void init(Node *parent, const T &value, Node **root, bool bound = false) { this->parent = parent, this->value = value, this->lazy = 0, this->max = value, this->reversed = false, this->root = root, this->bound = bound, this->size = 1, child[L] = child[R] = null; }
@@ -39,8 +39,9 @@ struct Splay {
 		{
 			pushDown(), size = 1 + (child[L] ? child[L]->size : 0) + (child[R] ? child[R]->size : 0);
 			max = value;
-			if (child[L]) max = std::max(max, child[L]->max);
-			if (child[R]) max = std::max(max, child[R]->max);
+			sum = value;
+			if (child[L]) max = std::max(max, child[L]->max),sum += child[L]->sum;
+			if (child[R]) max = std::max(max, child[R]->max),sum += child[R]->sum;
 		}
 		inline void pushDown() { //传标记
 			if (reversed) {

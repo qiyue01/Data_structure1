@@ -21,83 +21,49 @@
 using namespace std;
 namespace trie01
 {
-	const int sigma = 32;
-	long long base = 1;
+	const int sigma = 31;
 	struct node
 	{
 		node *child[2];
 		int times;
-		node()
+		void  clear()
 		{
 			times = 0;
 			child[0] = child[1] = NULL;
 		}
 	};
-	node pool[1500000];
-	node *root, *cur = pool;
-	node *new_()
+	struct trie
 	{
-		return cur++;
-	}
-	void init()
-	{
-		root = new_();
-	}
-	array<bool, sigma> kkk, ans;
-	void trans(int a)
-	{
-		kkk.fill(0);
-		for (int i = 0; i < sigma; ++i)
+		node pool[3600000];
+		node *root, *cur = pool;
+		node *new_()
 		{
-			kkk[i] = a & 1;
-			a = a >> 1;
+			cur->clear();
+			return cur++;
 		}
-		reverse(kkk.begin(), kkk.end());
-	}
-	long long retrans()
-	{
-		long long a = base << sigma, ans1 = 0;
-		for (auto &s : ans)
+		void init()
 		{
-			a = a >> 1;
-			ans1 += s * a;
+			cur = pool;
+			root = new_();
 		}
-		return ans1;
-	}
-	void insert(int a)
-	{
-		node *found = root;
-		trans(a);
-		for (int i = 0; i < sigma; ++i)
+		bitset<sigma + 1> trans;
+		void insert(long long a)
 		{
-			if (found->child[kkk[i]] == NULL)
+			node *found = root;
+			trans = a;
+			for (int i = sigma; i >= 0; --i)
 			{
-				found->child[kkk[i]] = new_();
-				found = found->child[kkk[i]];
+				found->times++;
+				if (found->child[trans[i]] == NULL)
+				{
+					found->child[trans[i]] = new_();
+					found = found->child[trans[i]];
+				}
+				else
+					found = found->child[trans[i]];
 			}
-			else
-				found = found->child[kkk[i]];
+			found->times++;
 		}
-		found->times++;
-	}
-	long long query(long long a)
-	{
-		node *found = root;
-		trans(a);
-		for (int i = 0; i < sigma; ++i)
-		{
-			if (found->child[(!kkk[i])])
-			{
-				found = found->child[(!kkk[i])];
-				ans[i] = !kkk[i];
-			}
-			else
-			{
-				found = found->child[kkk[i]];
-				ans[i] = kkk[i];
-			}
-		}
-		return retrans() ^ a;
-	}
+	}t1, t2;
 }
 using namespace trie01;

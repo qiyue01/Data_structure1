@@ -180,6 +180,7 @@
     <ClCompile Include="树的直径.cpp" />
     <ClCompile Include="树链剖分2.cpp" />
     <ClCompile Include="点分树+重构树.cpp" />
+    <ClCompile Include="点分树路径最值+LCA.cpp" />
     <ClCompile Include="点分治.cpp" />
     <ClCompile Include="珂朵莉树.cpp" />
     <ClCompile Include="线段树.cpp" />

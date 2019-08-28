@@ -89,7 +89,22 @@
     <ClCompile Include="边分 静态+动态.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="点分树路径最值+LCA.cpp">
+    <ClCompile Include="01trie.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="点分树LCA_MIN_MAX.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="异或-01trie.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="可持久化01trie.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ST表.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="线性基.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

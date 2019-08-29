@@ -113,9 +113,9 @@ namespace tree_split2
 			int L = p.to[i];
 			if (vis[L] == false)
 			{
-				del_(L, L, L);
-				calc2(L, L);
-				ins_(L, L);
+				del_(L, root, L);
+				calc2(L, root);
+				ins_(L, root);
 				all_[L] = size1[L];
 			}
 		}

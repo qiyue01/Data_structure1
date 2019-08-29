@@ -1,77 +1,6 @@
-#include"pch.h"
-#include<string>
-#include<vector>
-#include<regex>
-#include<algorithm>
-#include<random>
-#include<map>
-#include<set>
-#include<deque>
-#include<iomanip>
-#include<sstream>
-#include<stack>
-#include<iostream>
-#include<limits>
-#include<bitset>
-#include<list>
-#include<queue>
-#include<array>
-#include<memory.h>
-#include<functional>
-using namespace std;
 namespace trie01
 {
-	const int sigma = 31;
-	struct node
-	{
-		node *child[2];
-		int times;
-		void  clear()
-		{
-			times = 0;
-			child[0] = child[1] = NULL;
-		}
-	};
-	struct trie
-	{
-		node pool[3600000];
-		node *root, *cur = pool;
-		node *new_()
-		{
-			cur->clear();
-			return cur++;
-		}
-		void init()
-		{
-			cur = pool;
-			root = new_();
-		}
-		bitset<sigma + 1> trans;
-		void insert(long long a)
-		{
-			node *found = root;
-			trans = a;
-			for (int i = sigma; i >= 0; --i)
-			{
-				found->times++;
-				if (found->child[trans[i]] == NULL)
-				{
-					found->child[trans[i]] = new_();
-					found = found->child[trans[i]];
-				}
-				else
-					found = found->child[trans[i]];
-			}
-			found->times++;
-		}
-	}t1, t2;
-}
-using namespace trie01;
-/*
-#define int long long
-namespace trie01
-{
-	const int sigma = 35;
+	const int sigma = 20;
 	long long base = 1;
 	struct node
 	{
@@ -84,9 +13,9 @@ namespace trie01
 			lazy = times = element = 0;
 		}
 	};
-	node *history[610000];
-	node pool[17000000];
-	node *root, *cur = pool, *null;
+	node *history[200000];
+	node _pool[3000000];
+	node *root, *cur = _pool, *null;
 	node *new_()
 	{
 		cur->clear();
@@ -98,6 +27,7 @@ namespace trie01
 		null = new node();
 		null->times = null->element = null->lazy = 0;
 		null->child[0] = null->child[1] = null;
+		cur = _pool;
 		root = new_();
 		history[0] = new_();
 	}
@@ -188,6 +118,23 @@ namespace trie01
 		}
 		return rk;
 	}
+	int prefix(node *p, int pos)
+	{
+		bitset<sigma + 1> kkk = pos;
+		int rk = 0;
+		for (int i = sigma; i >= 0; --i)
+		{
+			if (kkk[i])
+				rk += p->child[0]->times;
+			p = p->child[kkk[i]];
+		}
+		rk += p->times;
+		return rk;
+	}
+	int querysum(node *p, int L, int R)
+	{
+		return prefix(p, R) - prefix(p, L - 1);
+	}
 	int kth(int L, int R, int s)
 	{
 		node* PL = history[L - 1], *PR = history[R];
@@ -209,7 +156,16 @@ namespace trie01
 		}
 		return rk;
 	}
+	void merge(node *a, node *b)
+	{
+		b->times += a->times;
+		for (int i = 0; i < 2; ++i)
+		{
+			if (a->child[i] != null && b->child[i] != null)
+				merge(a->child[i], b->child[i]);
+			else if (b->child[i] == null)
+				b->child[i] = a->child[i];
+		}
+	}
 }
 using namespace trie01;
-long long Max = INT_MAX;
-*/

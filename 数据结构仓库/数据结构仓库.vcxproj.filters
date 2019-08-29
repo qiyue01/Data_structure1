@@ -107,5 +107,26 @@
     <ClCompile Include="线性基.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="线段树维护hash.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="替罪羊维护小于前缀和为k的rank.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="经典操作还带回收的treap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="treap单点修改，k位前缀和.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="指针线段树.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="纯treap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="可持久化权值01trie.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

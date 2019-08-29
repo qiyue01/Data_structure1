@@ -169,16 +169,20 @@
     <ClCompile Include="Red_Black_Tree.cpp" />
     <ClCompile Include="splay.cpp" />
     <ClCompile Include="treap.cpp" />
+    <ClCompile Include="treap单点修改，k位前缀和.cpp" />
     <ClCompile Include="二维树状数组.cpp" />
     <ClCompile Include="二维线段树.cpp" />
     <ClCompile Include="倍增.cpp" />
     <ClCompile Include="划分树.cpp" />
     <ClCompile Include="可持久化01trie.cpp" />
+    <ClCompile Include="可持久化权值01trie.cpp" />
     <ClCompile Include="可持久化线段树.cpp" />
     <ClCompile Include="异或-01trie.cpp" />
+    <ClCompile Include="指针线段树.cpp" />
     <ClCompile Include="数据结构仓库.cpp" />
     <ClCompile Include="斐波那契堆.cpp" />
     <ClCompile Include="替罪羊树.cpp" />
+    <ClCompile Include="替罪羊维护小于前缀和为k的rank.cpp" />
     <ClCompile Include="树上启发式合并.cpp" />
     <ClCompile Include="树的直径.cpp" />
     <ClCompile Include="树链剖分2.cpp" />
@@ -187,8 +191,11 @@
     <ClCompile Include="点分树LCA_MIN_MAX.cpp" />
     <ClCompile Include="点分治.cpp" />
     <ClCompile Include="珂朵莉树.cpp" />
+    <ClCompile Include="纯treap.cpp" />
     <ClCompile Include="线性基.cpp" />
     <ClCompile Include="线段树.cpp" />
+    <ClCompile Include="线段树维护hash.cpp" />
+    <ClCompile Include="经典操作还带回收的treap.cpp" />
     <ClCompile Include="边分 静态+动态.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

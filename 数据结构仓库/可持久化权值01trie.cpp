@@ -167,5 +167,21 @@ namespace trie01
 				b->child[i] = a->child[i];
 		}
 	}
+	node *merge2(node *x, node *y) //合并x,y,返回合并后的根
+	{
+		if (x == null) return y;
+		if (y == null) return x;
+		node *merge_version = new_();
+		merge_version->times = y->times + x->times;
+		merge_version->child[0] = merge2(x->child[0], y->child[0]);
+		merge_version->child[1] = merge2(x->child[1], y->child[1]);
+		return merge_version;
+	}
+	void merge_all(node *x, node *y) // 将x全树合并到y上
+	{
+		y->times += x->times;
+		y->child[0] = merge2(x->child[0], y->child[0]);
+		y->child[1] = merge2(x->child[1], y->child[1]);
+	}
 }
 using namespace trie01;

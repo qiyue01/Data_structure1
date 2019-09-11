@@ -183,6 +183,7 @@
     <ClCompile Include="斐波那契堆.cpp" />
     <ClCompile Include="替罪羊树.cpp" />
     <ClCompile Include="替罪羊维护小于前缀和为k的rank.cpp" />
+    <ClCompile Include="李超树.cpp" />
     <ClCompile Include="树上启发式合并.cpp" />
     <ClCompile Include="树的直径.cpp" />
     <ClCompile Include="树链剖分2.cpp" />
